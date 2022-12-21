@@ -1,11 +1,30 @@
-﻿#include <iostream> 
+// f(x) = arccos(x) - sqrt(1 - 0.3 * x^3);
+// [0.1];
+
+#include <iostream>
 #include <cmath>
-int main() {
-    double a = 1, b = 2, c;
-    while ((std::acos(a) - std::sqrt(1 - 0.3 * pow(a, 3)) > 0.0000001) and ((std::acos(b) - std::sqrt(1 - 0.3 * pow(b, 3))))) {
+using namespace std;
+
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+    float a, b, c;
+    float fA, fB, fC;
+    double eps = 0.000001;
+    a = 0;
+    b = 1;
+    while (b - a > eps)
+    {
         c = (a + b) / 2;
-        if (std::acos(c) - std::sqrt(1 - 0.3 * pow(c, 3))) b = c;
-        else a = c;
+        fA = (acos(a) - sqrt(1 - 0.3 * pow(a, 3)));
+        fB = (acos(b) - sqrt(1 - 0.3 * pow(b, 3)));
+        fC = (acos(c) - sqrt(1 - 0.3 * pow(c, 3)));
+        if (fA * fC < 0) { b = c; }
+        else if (fC * fB < 0) { a = c; }
+        else { cout << "×òî-òî íå òî!" << endl; }
     }
-    if (std::acos(c) - std::sqrt(1 - 0.3 * pow(c, 3))) std::cout << b << std::endl;
-    else std::cout << a << std::endl;
+
+    cout << a << "; " << b << endl;
+
+    return 0;
+}
