@@ -1,10 +1,23 @@
-﻿#include <iostream> 
+#include <iostream>
 #include <cmath>
-int main() {
-    double a = 0, b = 1, c = b, d = a, la = 2.0 / 11.0;
-    while (std::abs(c - d) > 0.000000001) {
-        d = c;
-        c += la * (std::acos(c) - std::sqrt(1 - 0.3 * pow(c, 3)));
+
+using namespace std;
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+    float x, xPrev;
+    double lambda = 0.5;
+    x = 1;
+    xPrev = -2;
+    double eps = 0.000001;
+
+    while (abs(x - xPrev) > eps)
+    {
+        xPrev = x;
+        x = lambda * (acos(xPrev) - sqrt(1 - 0.3 * pow(xPrev, 3))) + xPrev;
     }
-    std::cout << c << std::endl;
+
+    cout << "Корень по методу итераций: " << x << endl;
+
+    return 0;
 }
