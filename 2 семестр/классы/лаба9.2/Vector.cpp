@@ -1,4 +1,5 @@
 #include "Vector.h"
+#include "error.h"
 #include <stdexcept>
 
 Vector::Vector(int s){
@@ -57,8 +58,8 @@ std::istream& operator>>(std::istream& in,Vector& v){
 }
 
 int Vector::operator[](int i){
-    if(i<0) throw 2;
-    if(i>=size) throw domain_error("Vector length is more than maximum size");
+    if(i<0) throw error("Index is less than 0");
+    if(i>=size) throw error("Vector length is more than maximum size");
     return beg[i];
 }
 
@@ -67,6 +68,24 @@ Vector Vector::operator+(int a) {
     Vector tmp(size+1,beg);
     tmp.beg[size]=a;
     return tmp;
+}
+
+Vector Vector::operator--(){
+    if(size==0) throw 5;
+    if(size==1){
+        size=0;
+        delete[]beg;
+        beg= nullptr;
+        return *this;
+    }
+    Vector tmp(size,beg);
+    delete []beg;
+    size--;
+    beg = new int[size];
+    for(int i=0;i<size;i++){
+        beg[i]=tmp.beg[i];
+    }
+    return *this;
 }
 
 Vector Vector::operator--(){
